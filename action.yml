@@ -1,15 +1,15 @@
-name: Template-Action
-description: A template action for GitHub Actions using PowerShell
-author: PSModule
+name: Terraform-Init
+description: A GitHub Action to run 'terraform init' in a specified directory.
+author: TFActions
 branding:
   icon: upload-cloud
   color: white
 
 inputs:
-  Subject:
-    description: The subject to greet
+  Lock:
+    description: Whether to lock the state file when running 'terraform init'. Accepts 'true' or 'false'.
     required: false
-    default: World
+    default: 'false'
   Debug:
     description: Enable debug output.
     required: false
@@ -36,7 +36,7 @@ runs:
     - name: Template-Action
       uses: PSModule/GitHub-Script@v1
       env:
-        PSMOUDLE_TEMPLATE_ACTION_INPUT_Subject: ${{ inputs.Subject }}
+        PSMODULE_TEMPLATE_ACTION_INPUT_Lock: ${{ inputs.Lock }}
       with:
         Name: Template-Action
         Debug: ${{ inputs.Debug }}

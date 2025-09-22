@@ -3,7 +3,7 @@
 [CmdletBinding()]
 param(
     [Parameter()]
-    [string] $Subject = $env:PSMOUDLE_TEMPLATE_ACTION_INPUT_Subject
+    [string] $Lock = $env:PSMODULE_TEMPLATE_ACTION_INPUT_Lock ?? 'false'
 )
 
 begin {
@@ -12,10 +12,11 @@ begin {
 }
 
 process {
-    try {
-        Write-Output "Hello, $Subject!"
-    } catch {
-        throw $_
+    LogGroup 'Terraform Init' {
+        terraform init -lock=$Lock
+        if ($LASTEXITCODE -ne 0) {
+            exit $LASTEXITCODE
+        }
     }
 }
 
