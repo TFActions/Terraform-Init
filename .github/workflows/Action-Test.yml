@@ -24,8 +24,13 @@ jobs:
       # Need to check out as part of the test, as its a local action
       - name: Checkout repo
         uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
 
       - name: Action-Test
         uses: ./
         with:
-          Subject: PSModule
+          WorkingDirectory: tests/Basic

@@ -1,24 +1,15 @@
 #Requires -Modules GitHub
 
-[CmdletBinding()]
-param(
-    [Parameter()]
-    [string] $Subject = $env:PSMOUDLE_TEMPLATE_ACTION_INPUT_Subject
-)
+$scriptName = $MyInvocation.MyCommand.Name
+Write-Debug "[$scriptName] - Start"
 
-begin {
-    $scriptName = $MyInvocation.MyCommand.Name
-    Write-Debug "[$scriptName] - Start"
-}
+$Lock = $env:PSMODULE_TEMPLATE_ACTION_INPUT_Lock ?? 'false'
 
-process {
-    try {
-        Write-Output "Hello, $Subject!"
-    } catch {
-        throw $_
+LogGroup 'terraform init' {
+    terraform init -lock="$Lock"
+    if ($LASTEXITCODE -ne 0) {
+        exit $LASTEXITCODE
     }
 }
 
-end {
-    Write-Debug "[$scriptName] - End"
-}
+Write-Debug "[$scriptName] - End"
