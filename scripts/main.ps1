@@ -5,7 +5,7 @@ Write-Debug "[$scriptName] - Start"
 
 $Lock = $env:PSMODULE_TEMPLATE_ACTION_INPUT_Lock ?? 'false'
 
-LogGroup 'Terraform Init' {
+LogGroup 'terraform init' {
     terraform init -lock="$Lock"
     if ($LASTEXITCODE -ne 0) {
         exit $LASTEXITCODE
