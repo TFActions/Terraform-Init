@@ -33,12 +33,12 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: Template-Action
+    - name: Terraform-Init
       uses: PSModule/GitHub-Script@v1
       env:
         PSMODULE_TEMPLATE_ACTION_INPUT_Lock: ${{ inputs.Lock }}
       with:
-        Name: Template-Action
+        Name: Terraform-Init
         Debug: ${{ inputs.Debug }}
         Prerelease: ${{ inputs.Prerelease }}
         Verbose: ${{ inputs.Verbose }}
