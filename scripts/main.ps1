@@ -13,7 +13,7 @@ begin {
 
 process {
     LogGroup 'Terraform Init' {
-        terraform init -lock=$Lock
+        terraform init -lock="$Lock"
         if ($LASTEXITCODE -ne 0) {
             exit $LASTEXITCODE
         }
