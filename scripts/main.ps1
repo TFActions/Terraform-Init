@@ -1,10 +1,9 @@
 #Requires -Modules GitHub
 
-[CmdletBinding()]
-param(
-    [Parameter()]
-    [string] $Lock = $env:PSMODULE_TEMPLATE_ACTION_INPUT_Lock ?? 'false'
-)
+$scriptName = $MyInvocation.MyCommand.Name
+Write-Debug "[$scriptName] - Start"
+
+$Lock = $env:PSMODULE_TEMPLATE_ACTION_INPUT_Lock ?? 'false'
 
 LogGroup 'Terraform Init' {
     terraform init -lock="$Lock"
@@ -12,3 +11,5 @@ LogGroup 'Terraform Init' {
         exit $LASTEXITCODE
     }
 }
+
+Write-Debug "[$scriptName] - End"
