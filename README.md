@@ -2,6 +2,11 @@
 
 This action runs `terraform init` in a specified working directory as part of your IaC pipeline. It wraps a reusable PowerShell-based composite action that can optionally install/update the required supporting PowerShell module version, control prerelease usage, toggle locking behavior, and provide debug/verbose output for easier troubleshooting.
 
+## Prerequisites
+
+You must have the Terraform CLI available in the runner environment before using this action. The recommended (and tested) approach is to use the official HashiCorp setup action immediately before this action:
+See the [Example Usage](#example-usage) section below for the required setup snippet.
+
 ## Features
 
 - Executes `terraform init` in a chosen working directory (`WorkingDirectory` input; defaults to the repository root).
@@ -41,35 +46,21 @@ on:
 		branches: [ main ]
 
 jobs:
-	init:
-		runs-on: ubuntu-latest
-		steps:
-			- name: Checkout
-				uses: actions/checkout@v4
+init:
+  runs-on: ubuntu-latest
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v4
 
-			- name: Set up Terraform
-				uses: hashicorp/setup-terraform@v3
-				with:
-					terraform_version: 1.9.2
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v3
+      with:
+        terraform_version: 1.9.2
 
-			- name: Terraform Init
-				uses: TFActions/Terraform-Init@v1
-				with:
-					WorkingDirectory: ./infra
-```
-
-With optional flags:
-
-```yaml
-- name: Terraform Init (Verbose + Lock + Specific Module Version)
-	uses: TFActions/Terraform-Init@v1
-	with:
-		WorkingDirectory: ./infra
-		Lock: true
-		Verbose: true
-		Debug: false
-		Version: 1.2.3
-		Prerelease: false
+    - name: Terraform Init
+      uses: TFActions/Terraform-Init@v1
+      with:
+        WorkingDirectory: ./infra
 ```
 
 ## Contributing
