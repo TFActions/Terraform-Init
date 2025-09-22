@@ -41,9 +41,9 @@ Minimal example (uses defaults):
 ```yaml
 name: Terraform Init
 on:
-	workflow_dispatch:
-	push:
-		branches: [ main ]
+  workflow_dispatch:
+  push:
+    branches: [ main ]
 
 jobs:
 init:
