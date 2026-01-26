@@ -31,4 +31,4 @@ jobs:
           persist-credentials: false
 
       - name: Auto-Release
-        uses: PSModule/Auto-Release@v1
+        uses: PSModule/Auto-Release@v2
